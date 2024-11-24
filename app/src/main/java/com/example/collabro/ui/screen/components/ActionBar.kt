@@ -19,11 +19,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.collabro.ui.theme.Ghost
 import com.example.collabro.ui.theme.Primary
+import com.example.collabro.R
 
 @Composable
 fun ActionBar(
@@ -41,10 +43,9 @@ fun ActionBar(
         )
 
         Icon(
-            imageVector = Icons.Default.Search,
+            painter = painterResource(id = R.drawable.search),
             contentDescription = "Search",
-            modifier = Modifier.size(24.dp),
-            tint = Color(0xFF00A67E)
+            tint = Primary
         )
     }
 }
@@ -77,13 +78,13 @@ private fun Location(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    imageVector = Icons.Default.LocationOn,
+                    painter = painterResource(id = R.drawable.location),
                     contentDescription = "Location",
                     tint = Primary,
-                    modifier = Modifier.size(20.dp)
                 )
 
                 Text(
+                    modifier = Modifier.padding(4.dp,0.dp,0.dp,0.dp),
                     text = "Depok,",
                     fontWeight = FontWeight.ExtraBold,
                     fontSize = 20.sp
