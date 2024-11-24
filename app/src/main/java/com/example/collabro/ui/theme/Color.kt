@@ -14,7 +14,7 @@ val Pink40 = Color(0xFF7D5260)
 var Primary = Color(0,170,91)
 var Secondary = Color(9, 222, 122)
 //var Background = Color(215, 255, 236)
-var CardBackground = Color(215, 255, 236)
+var CardBackground = Color.White
 var Ghost = Color.Gray
 
 val Background = Brush.linearGradient(
