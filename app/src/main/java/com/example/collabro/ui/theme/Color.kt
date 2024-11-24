@@ -14,3 +14,4 @@ var Primary = Color(0,170,91)
 var Secondary = Color(9, 222, 122)
 var Background = Color(215, 255, 236)
 var CardBackground = Color(215, 255, 236)
+var Ghost = Color.Gray
