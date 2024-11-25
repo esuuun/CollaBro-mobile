@@ -39,8 +39,9 @@ fun HomeScreen(){
             ) {
                 ActionBar()
                 CardPreview()
-//            NavBar()
+
             }
+            NavBar()
         }
     }
 

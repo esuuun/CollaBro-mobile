@@ -16,6 +16,7 @@ var Secondary = Color(9, 222, 122)
 //var Background = Color(215, 255, 236)
 var CardBackground = Color.White
 var Ghost = Color.Gray
+var NavbarBackground = Color(0xFFEEFFF6)
 
 val Background = Brush.linearGradient(
     colors = listOf(
