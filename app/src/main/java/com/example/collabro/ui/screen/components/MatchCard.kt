@@ -1,6 +1,9 @@
 package com.example.collabro.ui.screen.components
 
+import android.provider.ContactsContract.Profile
 import android.util.Log
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,6 +17,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -34,10 +38,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -50,12 +56,16 @@ import com.example.collabro.ui.theme.CardBackground
 import com.example.collabro.R
 import com.example.collabro.ui.theme.Ghost
 import com.example.collabro.ui.theme.Primary
+import com.example.collabro.ui.theme.Secondary
+import kotlinx.coroutines.launch
 
 @Composable
 fun MatchCard(
     title : String,
     desc : String,
     image: Painter,
+    profile: Painter,
+    index : Int,
     modifier: Modifier = Modifier ,
     onMoveNext: () -> Unit
 ){
@@ -66,23 +76,32 @@ fun MatchCard(
         desc.take(98) + "...see more"
     }
 
+    val offsetXreject = remember { Animatable(0f) }
+    val offsetXaccept = remember { Animatable(0f) }
+    val scope = rememberCoroutineScope()
 
-    Box(modifier = Modifier
-        .fillMaxSize()
-        , contentAlignment = Alignment.Center) {
+    val isAccept = remember { mutableStateOf(false) }
+
+
         ElevatedCard(
             colors = CardDefaults.elevatedCardColors(
-                containerColor = CardBackground // Replace with your desired color
+//                containerColor = CardBackground
+//                containerColor = if (index == 0) CardBackground else CardBackground.copy(alpha = 0.5f)
+                containerColor = CardBackground
             ),
             elevation = CardDefaults.cardElevation(
-                defaultElevation = 6.dp
+                defaultElevation = 0.dp
             ),
             modifier = Modifier
                 .fillMaxWidth()
+//                .offset(y = (index * -16).dp)
+//                .graphicsLayer {if(index <= 3) translationY = (index * 12).dp.toPx()}
+                .graphicsLayer { translationX = offsetXreject.value }
+                .graphicsLayer { translationX = offsetXaccept.value }
 //            .size(width = 240.dp, height = 100.dp)
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
-                ImageCard(image)
+                ImageCard(image, profile)
 
                     Text(
                         text = title,
@@ -100,15 +119,41 @@ fun MatchCard(
                                 .clickable { isExpanded.value = !isExpanded.value }
                         )
                     Spacer(modifier = Modifier.height(6.dp))
-                    ActionButton(onMoveNext)
+                    ActionButton (
+                        onReject = {
+                            scope.launch {
+                                offsetXreject.animateTo(
+                                    targetValue = -1000f,
+                                    animationSpec = tween(durationMillis = 500) // Adjust animation speed
+                                )
+
+                                onMoveNext()
+                                offsetXaccept.snapTo(0f)
+                            }
+                        },
+
+                        onAccept = {
+                            scope.launch {
+                                offsetXreject.animateTo(
+                                    targetValue = 1000f,
+                                    animationSpec = tween(durationMillis = 500) // Adjust animation speed
+                                )
+
+                                onMoveNext()
+                                offsetXaccept.snapTo(0f)
+                            }
+                        },
+                    )
+
 
             }
         }
     }
-}
+
+
 
 @Composable
-private fun ImageCard(image: Painter){
+private fun ImageCard(image: Painter, profile: Painter){
     Box(modifier = Modifier
         .fillMaxWidth()
         .height(306.dp)
@@ -128,7 +173,7 @@ private fun ImageCard(image: Painter){
             modifier = Modifier.padding(8.dp)
         ) {
         Image(
-            painter = painterResource(id = R.drawable.profile_pict),
+            painter = profile,
             contentDescription = "Profile picture",
             modifier = Modifier
                 .size(50.dp)
@@ -169,7 +214,7 @@ private fun LookingFor(){
 }
 
 @Composable
-private fun ActionButton(onMoveNext: () -> Unit){
+private fun ActionButton(onAccept: () -> Unit, onReject: () -> Unit){
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -178,7 +223,7 @@ private fun ActionButton(onMoveNext: () -> Unit){
     ) {
         // Reject button
         IconButton (
-            onClick = { onMoveNext() },
+            onClick = { onReject()},
             modifier = Modifier
                 .size(52.dp)
                 .background(Color.Red.copy(alpha = 0.1f), CircleShape)
@@ -192,7 +237,7 @@ private fun ActionButton(onMoveNext: () -> Unit){
 
         // Accept button
         IconButton(
-            onClick = { /* TODO: Handle Accept Action */ }, // Tambahkan 'onClick'
+            onClick = { onAccept ()}, // Tambahkan 'onClick'
             modifier = Modifier
                 .size(52.dp)
                 .background(Color.Green.copy(alpha = 0.1f), CircleShape)
