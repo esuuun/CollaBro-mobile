@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.CollaBro" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.CollaBro" parent="android:Theme.Material.Light.NoActionBar" >
+        <item name="android:windowSplashScreenBackground">@color/white</item>
+        <item name="android:windowSplashScreenAnimatedIcon" >@drawable/workflowteamwork</item>
+        <item name="android:windowSplashScreenAnimationDuration">3000</item>
+    </style>
 </resources>
