@@ -34,27 +34,37 @@ import com.example.collabro.R
 import com.example.collabro.ui.theme.CardBackground
 import kotlinx.coroutines.launch
 
-data class MatchItem(val title: String, val desc: String, val imageRes: Int, val profileImage: Int)
+data class MatchItem(val title: String, val desc: String, val imageRes: Int, val profileImage: Int, val lookingFor : String)
 
 val data = listOf(
     MatchItem(
         title = "Lomba Innoverse",
         desc = "Hi ! Kami adalah sebuah tim dari Universitas Indonesia, sedang mencari UI/UX designers untuk lomba balap karung Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales gravida risus, vitae ultricies mi placerat et. Integer eu dapibus dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean fermentum vehicula egestas. Sed id turpis quis lectus molestie pharetra. Nullam pulvinar erat eget purus hendrerit, if u interested hit me up!",
         imageRes = R.drawable.image1,
-        profileImage = R.drawable.profile_pict
+        profileImage = R.drawable.profile_pict,
+        lookingFor = "UI/UX Designer",
     ),
     MatchItem(
         title = "Project GG",
         desc = "Hi ! Kami adalah sebuah tim dari Universitas Indonesia, sedang mencari UI/UX designers untuk lomba balap karung Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales gravida risus, vitae ultricies mi placerat et. Integer eu dapibus dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean fermentum vehicula egestas. Sed id turpis quis lectus molestie pharetra. Nullam pulvinar erat eget purus hendrerit, if u interested hit me up!",
         imageRes = R.drawable.image2,
-        profileImage = R.drawable.image1
+        profileImage = R.drawable.image1,
+        lookingFor = "Web Developer",
     ),
 
     MatchItem(
         title = "Project GG 2",
         desc = "Hi ! Kami adalah sebuah tim dari Universitas Indonesia, sedang mencari UI/UX designers untuk lomba balap karung Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales gravida risus, vitae ultricies mi placerat et. Integer eu dapibus dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean fermentum vehicula egestas. Sed id turpis quis lectus molestie pharetra. Nullam pulvinar erat eget purus hendrerit, if u interested hit me up!",
         imageRes = R.drawable.image2,
-        profileImage = R.drawable.image1
+        profileImage = R.drawable.image1,
+        lookingFor = "Frontend Dev",
+    ),
+    MatchItem(
+        title = "Lomba Hackathon",
+        desc = "Hi ! Kami adalah sebuah tim dari Universitas Indonesia, sedang mencari UI/UX designers untuk lomba balap karung Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales gravida risus, vitae ultricies mi placerat et. Integer eu dapibus dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean fermentum vehicula egestas. Sed id turpis quis lectus molestie pharetra. Nullam pulvinar erat eget purus hendrerit, if u interested hit me up!",
+        imageRes = R.drawable.image1,
+        profileImage = R.drawable.profile_pict,
+        lookingFor = "Backend Dev",
     ),
 )
 
@@ -80,6 +90,7 @@ fun CardPreview() {
                 image = painterResource(id = item.imageRes),
                 profile = painterResource(id = item.profileImage),
                 index = index ,
+                lookingFor = item.lookingFor,
                 onMoveNext = {
                     if (index >= 0 && index <= cards.size) {
                         Log.d("CardPreview", "onMoveNext called for index: $index, size : ${cards.size}",)

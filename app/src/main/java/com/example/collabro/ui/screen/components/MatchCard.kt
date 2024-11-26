@@ -65,6 +65,7 @@ fun MatchCard(
     desc : String,
     image: Painter,
     profile: Painter,
+    lookingFor : String,
     index : Int,
     modifier: Modifier = Modifier ,
     onMoveNext: () -> Unit
@@ -110,7 +111,7 @@ fun MatchCard(
                         textAlign = TextAlign.Center,
                     )
                     Spacer(modifier = Modifier.height(4.dp))
-                    LookingFor()
+                    LookingFor(lookingFor)
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = displayDesc,
@@ -186,7 +187,7 @@ private fun ImageCard(image: Painter, profile: Painter){
 }
 
 @Composable
-private fun LookingFor(){
+private fun LookingFor(lookingFor: String){
     Row {
         Text(
             text = "Looking For :",
@@ -204,7 +205,7 @@ private fun LookingFor(){
                 .padding(horizontal = 8.dp)
         ) {
             Text(
-                text = "UI/UX Designer",
+                text = lookingFor,
                 color = Primary,
                 fontWeight = FontWeight.Bold,
             )

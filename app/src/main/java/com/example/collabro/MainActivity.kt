@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.collabro.ui.screen.HomeScreen
+import com.example.collabro.ui.screen.SearchScreen
 import com.example.collabro.ui.theme.CollaBroTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,6 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CollaBroTheme {
                 HomeScreen()
+//                SearchScreen()
             }
         }
     }
