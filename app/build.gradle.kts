@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.collabro"
-        minSdk = 28
+        minSdk = 31
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -40,7 +40,9 @@ android {
 }
 
 dependencies {
-
+    val nav_version = "2.8.4"
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation("androidx.core:core-splashscreen:1.0.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -56,4 +58,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("androidx.wear.compose:compose-material:1.2.1")
+    implementation("androidx.wear.compose:compose-foundation:1.2.1")
+
 }
